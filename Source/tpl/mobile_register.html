@@ -1,0 +1,29 @@
+<div data-role="page" data-title="{TITLE}" data-url="mobile_login">
+    <div data-role="content">
+		<center><img src="{LOGO}" height="80"/><BR>
+		Bem-vindo &agrave; {COMPANY}! <BR>
+		Para acessar a internet voc&ecirc; deve efetuar o Login. O registro &eacute; gratuito.</center><BR>{MSG}<BR>
+		<form action="?m=register" method="POST" data-ajax="false">
+
+			<label for="username">Usu&aacute;rio:</label>
+			<input type="text" name="username" id="username" data-mini="true" value="{USERNAME}" placeholder="Usu&aacute;rio desejado"/>
+			<label for="password">Senha:</label>
+			<input type="password" name="password" id="password" data-mini="true" placeholder="Senha desejada" />
+			<label for="password2">Repetir a Senha:</label>
+			<input type="password" name="password2" id="password2" data-mini="true" placeholder="Repita a senha desejada" />
+
+			<label for="name">Nome:</label>
+			<input type="text" name="name" id="name" data-mini="true" value="{NAME}" placeholder="Seu nome" />
+			<label for="email">Email:</label>
+			<input type="text" name="email" id="email" data-mini="true" value="{EMAIL}" placeholder="Seu email"/>
+			<label><input type="checkbox" name="newsletter" checked/> Desejo receber not&iacute;cias deste estabelecimento em meu email. </label>
+
+			<label for="nickname">Apelido do dispositivo:</label>
+			<input type="text" name="nickname" id="nickname" data-mini="true" value="{DEVICE_NICK}" placeholder="Apelido para este dispositivo"/>
+			<input type="hidden" name="action" value="register">
+			<input type="hidden" name="macaddress" value="{MAC}">
+			<input type="submit" name="submit" value="Registrar">
+		</form>
+		{DEBUG}
+    </div>
+</div>

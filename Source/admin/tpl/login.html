@@ -1,0 +1,15 @@
+<div data-role="page" data-title="{TITLE}" data-url="mobile_login">
+    <div data-role="content">
+		<center><img src="{LOGO}" height="80"/><BR>
+		Bem-vindo &agrave; {COMPANY}! <BR></center><BR>{MSG}<BR>
+		<form action="?m=login" method="POST" data-ajax="false">
+			<label for="username">Usu&aacute;rio:</label>
+			<input type="text" name="username" id="username" data-mini="true" placeholder="Seu usu&aacute;rio" />
+			<label for="password">Senha:</label>
+			<input type="password" name="password" id="password" data-mini="true" placeholder="Senha" />
+			<input type="hidden" name="action" value="login">
+			<input type="submit" name="submit" value="Login">
+		</form>
+		{DEBUG}
+    </div>
+</div>
