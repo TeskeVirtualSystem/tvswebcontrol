@@ -81,9 +81,9 @@ Args:
 
 *	`MAC_ADDRESS` -> Client's MAC Address
 
-####	Disconnect the client
+####	Disconnect the client from the AP
 
-*	Function:	Esta função desconecta o cliente do AP. Uso:
+*	Function: Disconnects the clients
 *	`Heads up!` -> *When you disconnect a client, he will be able to connect again.*
 
 
