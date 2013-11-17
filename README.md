@@ -1,42 +1,35 @@
 TVS Web Control System
 ================================
-	 _______     ______
-	|_   _\ \   / / ___| 
-	  | |  \ \ / /\___ \ 
-	  | |   \ V /  ___) |
-	  |_|    \_/  |____/ 
-                     
 
-TODO: Port this to english.
-
-Funcionalidades
+Functionality
 ================================
-*	As classes de controle do **UniFI** e **TVS-WebSys** estão em seu estado inicial e `completos` em relação a ideia inicial.
-*	O modelo de Banco de Dados está no seu estado inicial
+*	The controller classes `UniFI` and `TVS-WebSys` are in it's initial state
+*	The initial idea for the whole thing are complete
+*	The DB Model is in it's initial state as well
 
 
-Classe UniFI
+UniFI Class
 ================================
-*	Arquivo: **inc/unifi.class.php**	-	Esta é a classe de **controle** do **Ubiquiti UniFI**
+*	File: **inc/unifi.class.php**	-	`Controller` class of **Ubiquiti UniFI**
 
-####	Inicialização do Controle
+####	Controller bootstrap (initialization)
 
-*	Função: Inicializar o Control
+*	Function: Start the `Control`
 
 
-		$unifiman		=	new UNIFI_CONTROL(UNIFI_URL,UNIFI_USER, UNIFI_PASS, UNIFI_MAX_TIME);
+		$unifiman		=	new UNIFI_CONTROL(UNIFI_URL, UNIFI_USER, UNIFI_PASS, UNIFI_MAX_TIME);
 
-Sendo:
+Args:
 
-*	`UNIFI_URL` a URL de conexão ao **UniFI** ( Ex: **http://IP:8443** )
-*	`UNIFI_USER` o usuário para se conectar ao **UniFI**
-*	`UNIFI_PASS` a senha usada para se conectar **UniFI**
-*	`UNIFI_MAX_TIME` o tempo máximo que o usuário ficará conectado em minutos. (Padrão: 30 minutos)
+*	`UNIFI_URL` -> **UniFI** connection URL (e.g: `http://localhost:8443`)
+*	`UNIFI_USER` -> **UniFI** connection username
+*	`UNIFI_PASS` -> **UniFI** connection password
+*	`UNIFI_MAX_TIME` Connection TTL in minutes (default: 30 minutes)
 
 ####	Login
 
-*	Função:	Efetua o Login no **UniFI**.
-*	Obs:	`Será usado os dados inseridos na inicialização do controle.`
+*	Function: Login into **UniFI**
+*	`Heads up!` -> *The data will be inserted on the controller initialization.*
 
 
 		$unifiman->Login();
@@ -44,125 +37,125 @@ Sendo:
 
 ####	Logout
 
-*	Função:	Efetua o Logout no **UniFI**
-*	Obs:	`Deve-se efetuar o logout **SEMPRE** que se encerrar todas as operações. Ex: Final do processo da página.`
+*	Function: Logout of **UniFI**
+*	`Heads up!` -> *You must `ALWAYS` logout whenever you're done. e.g: Page processing has ended.*
 
 
 		$unifiman->Logout();
 
 
-####	Autorizar Cliente
+####	Authorize client
 
-*	Função:	Autoriza um cliente que se conecta ao Guest Portal.
-*	Obs:	`Quando o tempo expirar, uma nova sessão será requisitada.`
-
-
-		$unifiman->AuthorizeClient(MAC_ADDRESS, TEMPO)
-
-Onde:
-
-*	`MAC_ADDRESS` é o Mac Address do Cliente
-*	`TEMPO` é o tempo em minutos que ele poderá ficar conectado.
+*	Function: Authorize a new client that has connected to the `Guest Portal`
+*	`Heads up!` -> *When the time expire, a new session will be requested.*
 
 
-####	Bloquear Acesso do Cliente
+		$unifiman->AuthorizeClient(MAC_ADDRESS, TIME)
 
-*	Função:	Bloqueia o acesso de um cliente baseado no Mac Address dele.
-*	Obs:	`O bloqueio só poderá ser desfeito com a função de desbloqueio, ou pelo painel de controle do **UniFI**`
+Args:
+
+*	`MAC_ADDRESS` -> Client's MAC Address
+*	`TIME` -> *The time in minutes, to stay connected (A.K.A, TTL xD).*
+
+
+####	Block's the client access
+
+*	Function: Block's the access for specified client based on his MAC Address
+*	`Heads up!` -> *The block can only be undone, with the `UnBlockClient(Args)` function, or through the `UniFI` control-panel.*
 
 
 		$unifiman->BlockClient(MAC_ADDRESS)
 
-Onde:
+Args:
 
-*	`MAC_ADDRESS` é o Mac Address do Cliente
+*	`MAC_ADDRESS` -> Client's MAC Address
 
-####	Desbloquear Acesso do Cliente
+####	Unblock's the client access
 
-*	Função:	Desbloqueia o acesso de um cliente baseado no Mac Address dele.
+*	Function: Unblock's the access for specified client based on his MAC Address
 
 
 		$unifiman->UnBlockClient(MAC_ADDRESS)
 
-Onde:
+Args:
 
-*	`MAC_ADDRESS` é o Mac Address do Cliente
+*	`MAC_ADDRESS` -> Client's MAC Address
 
-####	Desconectar Cliente
+####	Disconnect the client from the AP
 
-*	Função:	Esta função desconecta o cliente do AP. Uso:
-*	Obs: 	`Ao desconectar o cliente, ele poderá voltar a se conectar denovo.`
+*	Function: Disconnects the clients
+*	`Heads up!` -> *When you disconnect a client, he will be able to connect again.*
 
 
 		$unifiman->DisconnectClient(MAC_ADDRESS)
 
-Onde:
+Args:
 
-*	`MAC_ADDRESS` é o Mac Address do Cliente
+*	`MAC_ADDRESS` -> Client's MAC Address
 
-####	Reiniciar Access Point
+####	Restart Access Point
 	
-*	Função:	Reinicia um AP pelo seu Mac Address.
+*	Function: Restart an Access Point based on it's MAC Address
 
 
 		$unifiman->RestartAP(MAC_ADDRESS)
 
-Onde:
+Args:
 
-*	`MAC_ADDRESS` é o Mac Address do AP
+*	`MAC_ADDRESS` -> AP's MAC Address
 
-####	Obter Lista de Access Points
+####	Retrieve the `Access Points` list
 	
-*	Função:	Retorna uma lista de APs que estão configurados no seu **UniFI**.
+*	Function: Returns an `AP` list that is configured in your **UniFI**.
 
 
 		$aps = $unifiman->GetAccessPoints()		
 
-####	Obter Lista de Clientes
+####	Retrieve the client's list
 	
-*	Função:	Retorna uma lista de Cliente que estão configurados no seu **UniFI**.
+*	Function: Returns a list of all configured clients in your **UniFI**.
 
 
 		$clients = $unifiman->GetClients()	
 
 
-Classe TVSWEB_Control
+TVSWEB_Control Class
 ================================
-*	Arquivo: **inc/tvswebsys.class.php**
-Esta é a classe de **controle** do portal.
-Funções implementadas:
+*	File: **inc/tvswebsys.class.php**
+This is the `Portal` **Controller** class.
+Implemented functions:
 
-####	Inicialização do controle
+####	Controller bootstrap (initialization)
 	
-*	Função:	Inicializa o controle.
+*	Function: Initialize the controller
 
-		$tvswebsys	=	new TVSWEB_CONTROL(HOST,USER,PASS,DB);
+		$tvswebsys	=	new TVSWEB_CONTROL(HOST, USER, PASS, DB);
 
-Sendo:
+Args:
 
-*	`HOST`	o IP do servidor MySQL
-*	`USER`	o usuário para conexão no MySQL
-*	`PASS`	a senha para conexão no MySQL
-*	`DB` 	o banco de dados a se conectar
+*	`HOST`	MySQL Host (IP)
+*	`USER`	MySQL Username
+*	`PASS`	MySQL Password
+*	`DB` 	MySQL Database
 
 **TODO**
 
 
-Pendências
+Dependencies
 ================================
-*	Terminar documentação da Classe **TVSWEB_Control**
-*	Criar sistema de administração 
-*	Criar templates bonitos
+*	Finish the documentation of the **TVSWEB_Control** class
+*	Creates an admin system for this
+*	Create some beautiful templates haha
 
-Projeto
+Project
 ================================
-*   Feito por Lucas Teske para Teske Virtual System Ltda.
-*   Projeto anteriormente proprietário agora liberado sob a licença GPLv3
+*   Made by `Lucas Teske` to `Teske Virtual System Ltda.`
+*   Now released under the `GPLv3` license
 
-Projetos Referidos
+Referred projects
 ================================
-*	**Mobile Detect**: [https://github.com/serbanghita/Mobile-Detect][1]	(Usado para deteção de cliente)
-*	**UniFI API**:	[https://github.com/calmh/unifi-api][2]	(Reescrito para PHP)
+*	**Mobile Detect**: [https://github.com/serbanghita/Mobile-Detect][1] (Used to detect the client)
+*	**UniFI API**:	[https://github.com/calmh/unifi-api][2]	(Re-written to PHP)
 
 [1]:	https://github.com/serbanghita/Mobile-Detect
 [2]:	https://github.com/calmh/unifi-api
